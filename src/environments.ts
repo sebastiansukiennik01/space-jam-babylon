@@ -26,6 +26,11 @@ export class Environment {
         this._players = require('./data/players.json');
     }
 
+    public async init() {
+        this.createCharacterButtons();
+        this.addLegalLine();
+    }
+
     public createCharacterButtons() {
         // Create the main 3D UI manager for the icon grid
         var mainManager = new GUI.GUI3DManager(this._scene);
@@ -62,6 +67,25 @@ export class Environment {
         meshPanel.addControl(displayStatsContainer);
         displayStatsContainer.isVisible = false;
 
+    }
+
+    public addLegalLine() {
+        const guiMenu = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        guiMenu.idealHeight = 720;
+    
+        //Creating the legal text box
+        const textRect = new GUI.Rectangle("legalContainer");
+        textRect.color = "white";
+        guiMenu.addControl(textRect);
+    
+        //Creating the legal text
+        const legal = new GUI.TextBlock("legalText", "© 2021 WBEI TM & ©2021 WarnerMediaDirect, LLC. All Rights Reserved.");
+        legal.height = 0.2;
+    
+        // Positioning the legal text to the bottom center
+        legal.verticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        legal.horizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        textRect.addControl(legal);
     }
 }
 
